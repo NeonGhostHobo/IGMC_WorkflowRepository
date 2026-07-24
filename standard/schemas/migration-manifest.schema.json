@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://igmc.local/schemas/migration-manifest.schema.json",
+  "title": "IGMC Migration Manifest",
+  "type": "object",
+  "required": ["manifest_version", "operation", "classification", "summary", "operations", "validations", "conflicts", "warnings", "rollback"],
+  "properties": {
+    "manifest_version": { "type": "string" },
+    "operation": {
+      "type": "object",
+      "required": ["id", "type", "created_at", "repository", "base_commit", "workflow_version_to"]
+    },
+    "classification": {
+      "type": "object",
+      "required": ["archetype", "confidence"]
+    },
+    "summary": { "type": "object" },
+    "operations": { "type": "array" },
+    "validations": { "type": "array" },
+    "conflicts": { "type": "array" },
+    "warnings": { "type": "array" },
+    "rollback": { "type": "object" }
+  }
+}

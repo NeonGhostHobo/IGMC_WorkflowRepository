@@ -16,7 +16,7 @@ When you are assigned an Issue labeled `igmc` (or a PR titled `IGMC:`), follow t
 
 3) **Implement**
    - Implement the tickets with minimal, safe code changes.
-   - Keep the Unity project compiling.
+   - Keep the repository's declared validation commands passing.
 
 4) **Report**
    - Add/update a short report in `reports/YYYY-MM-DD-{issue_number}.md` and `reports/YYYY-MM-DD-{issue_number}.json` summarizing what was done.

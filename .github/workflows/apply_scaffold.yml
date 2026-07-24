@@ -40,7 +40,7 @@ jobs:
           if [ "${{ inputs.force }}" = "true" ]; then
             FORCE_FLAG="--force"
           fi
-          python3 template-repo/workflow_scaffold/apply.py \
+          python3 template-repo/apply.py \
             --dest target-repo \
             $FORCE_FLAG
 
@@ -70,4 +70,4 @@ jobs:
             --repo NeonGhostHobo/${{ matrix.repo }} \
             --head igmc/apply-scaffold \
             --title "Apply IGMC workflow scaffold" \
-            --body "Automated: applied IGMC workflow scaffold from [IGMC_UnityDev_WorkflowTemplate](https://github.com/NeonGhostHobo/IGMC_UnityDev_WorkflowTemplate) with \`--force\` (overwrites existing template files)."
+            --body "Automated: applied IGMC workflow scaffold from [IGMC Workflow Repository](https://github.com/NeonGhostHobo/IGMC_WorkflowRepository) with \`--force\` (overwrites existing template files)."

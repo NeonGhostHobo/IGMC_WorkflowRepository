@@ -1,0 +1,12 @@
+id: python-tool
+extends: igmc-default
+description: Python automation, CLI, scripting, or tooling repository.
+expected:
+  paths:
+    - tests
+commands:
+  validate: python -m compileall .
+  test: python -m pytest
+checks:
+  - python.project-metadata-present
+  - python.tests-present

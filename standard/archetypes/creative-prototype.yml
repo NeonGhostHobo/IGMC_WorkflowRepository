@@ -1,0 +1,11 @@
+id: creative-prototype
+extends: igmc-default
+description: Experimental creative project where recoverability matters more than strict production structure.
+expected:
+  paths: []
+commands:
+  validate: null
+  test: null
+checks:
+  - documentation.intent-present
+  - repository.contract.valid

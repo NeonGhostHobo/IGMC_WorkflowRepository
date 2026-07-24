@@ -1,0 +1,12 @@
+id: documentation-only
+extends: igmc-default
+description: Repository whose primary source of truth is documentation.
+expected:
+  paths:
+    - docs
+commands:
+  validate: null
+  test: null
+checks:
+  - documentation.required-artifacts-present
+  - documentation.index-present

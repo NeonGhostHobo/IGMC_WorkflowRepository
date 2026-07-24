@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 REQUIRED_FILES = [
@@ -18,6 +19,18 @@ def fail(msg: str):
 for f in REQUIRED_FILES:
     if not Path(f).exists():
         fail(f"Missing required file: {f}")
+
+contract_validator = Path("scripts/validate_repository_contract.py")
+if contract_validator.exists():
+    result = subprocess.run(
+        [sys.executable, str(contract_validator)],
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    if result.returncode != 0:
+        print(result.stdout)
+        fail("repository contract validation failed")
 
 goals = json.loads(Path("docs/goals.json").read_text(encoding="utf-8"))
 if "goals" not in goals or not goals["goals"]:

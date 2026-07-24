@@ -1,0 +1,15 @@
+id: rust-terminal-application
+extends: igmc-default
+description: Rust CLI/TUI application, commonly validated with cargo.
+expected:
+  paths:
+    - src
+    - tests
+commands:
+  validate: cargo check
+  test: cargo test
+  format_check: cargo fmt --check
+  lint: cargo clippy --all-targets --all-features -- -D warnings
+checks:
+  - rust.cargo-toml-present
+  - rust.source-present

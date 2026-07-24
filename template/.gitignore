@@ -1,0 +1,4 @@
+.igmc/cache/*
+!.igmc/cache/.gitkeep
+.igmc/generated/*
+!.igmc/generated/.gitkeep

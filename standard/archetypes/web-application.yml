@@ -1,0 +1,12 @@
+id: web-application
+extends: igmc-default
+description: Browser or full-stack web application.
+expected:
+  paths:
+    - src
+commands:
+  validate: npm run build
+  test: npm test
+checks:
+  - web.package-json-present
+  - web.build-command-declared

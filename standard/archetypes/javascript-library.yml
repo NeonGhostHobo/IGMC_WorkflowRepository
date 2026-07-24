@@ -1,0 +1,12 @@
+id: javascript-library
+extends: igmc-default
+description: JavaScript or TypeScript package intended for reuse.
+expected:
+  paths:
+    - src
+commands:
+  validate: npm run build
+  test: npm test
+checks:
+  - web.package-json-present
+  - javascript.package-entry-present

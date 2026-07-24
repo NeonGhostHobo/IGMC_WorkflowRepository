@@ -1,0 +1,59 @@
+rules:
+  - id: repository.contract.present
+    category: repository-contract
+    severity: critical
+    weight: 5
+    check:
+      type: path-exists
+      path: .igmc/repository.yml
+    remediation:
+      type: create-from-template
+      safe: false
+
+  - id: repository.contract.valid
+    category: repository-contract
+    severity: critical
+    weight: 10
+    check:
+      type: schema-valid
+      schema: standard/schemas/repository.schema.json
+    remediation:
+      type: edit-contract
+      safe: false
+
+  - id: documentation.required-artifacts-present
+    category: documentation
+    severity: required
+    weight: 10
+    check:
+      type: paths-exist
+      paths:
+        - docs/context_pack.json
+        - docs/goals.json
+        - docs/design.json
+        - docs/plan.yaml
+    remediation:
+      type: create-missing-artifacts
+      safe: false
+
+  - id: workflow.issue-template-present
+    category: issue-governance
+    severity: required
+    weight: 5
+    check:
+      type: path-exists
+      path: .github/ISSUE_TEMPLATE/igmc-intake.yml
+    remediation:
+      type: install-managed-asset
+      safe: false
+
+  - id: workflow.pr-template-present
+    category: git-and-ci-governance
+    severity: required
+    weight: 5
+    check:
+      type: path-exists
+      path: .github/PULL_REQUEST_TEMPLATE.md
+    remediation:
+      type: install-managed-asset
+      safe: false

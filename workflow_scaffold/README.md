@@ -1,6 +1,8 @@
-# Workflow Scaffold (IGMC)
+# Workflow Scaffold Compatibility Wrapper (IGMC)
 
-This folder is the **single source of truth** for the IGMC repo workflow setup.
+The root repository is the **single source of truth** for the IGMC repo workflow setup. This folder is retained only as a compatibility wrapper for existing automation that still calls `workflow_scaffold/apply.py`.
+
+There is intentionally no `workflow_scaffold/template/` tree. The only installable template lives at root `template/`.
 
 It is designed to be copyable into any repository (Unity or non-Unity) to make it compatible with:
 
@@ -13,7 +15,13 @@ It is designed to be copyable into any repository (Unity or non-Unity) to make i
 
 From this repo root:
 
+- `python3 apply.py --dest /path/to/other-repo --repo-id my-repo --repo-name "My Repo" --archetype generic-software`
+
+Existing automation may still call:
+
 - `python3 workflow_scaffold/apply.py --dest /path/to/other-repo`
+
+That wrapper delegates to the canonical root `apply.py`.
 
 Options:
 
@@ -21,7 +29,7 @@ Options:
 
 ## What gets installed
 
-Everything under `workflow_scaffold/template/` is copied into the destination repo root, preserving paths:
+Everything under root `template/` is copied into the destination repo root, preserving paths:
 
 - `.github/workflows/*`
 - `.github/agents/*`
@@ -32,6 +40,7 @@ Everything under `workflow_scaffold/template/` is copied into the destination re
 - `.github/workflows/tickets_to_issues.yml`
 - `.github/workflows/igmc_pr_rebase.yml`
 - `scripts/validate_artifacts.py`
+- `.igmc/repository.yml`
 - baseline `/docs/*` artifacts
 - `tickets/` + `reports/` folders
 - `design_docs/` folder
@@ -85,4 +94,4 @@ Automation fallback:
 ## Notes
 
 - The PR gate enforces that any non-doc changes also update required `/docs/*`, add/update at least one `tickets/*.md`, and add/update `review.md`.
-- Unity compilation is intentionally **not** run in CI in this template.
+- Archetype-specific validation, such as Unity compilation, is declared by `.igmc/repository.yml` and archetype rules rather than hard-coded into the generic template.

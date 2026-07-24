@@ -1,0 +1,12 @@
+id: research-repository
+extends: igmc-default
+description: Research, notes, experiments, or investigation repository with explicit documentation traceability.
+expected:
+  paths:
+    - docs
+commands:
+  validate: null
+  test: null
+checks:
+  - documentation.required-artifacts-present
+  - research.reproducibility-notes-present

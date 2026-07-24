@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://igmc.local/schemas/managed-asset.schema.json",
+  "title": "IGMC Managed Asset",
+  "type": "object",
+  "required": ["asset"],
+  "properties": {
+    "asset": {
+      "type": "object",
+      "required": ["id", "version", "source", "destination", "strategy", "ownership"],
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" },
+        "source": { "type": "string" },
+        "destination": { "type": "string" },
+        "strategy": { "type": "string" },
+        "ownership": { "type": "string" },
+        "checksum": { "type": ["string", "null"] },
+        "local_modification_policy": { "type": "string" }
+      }
+    }
+  }
+}

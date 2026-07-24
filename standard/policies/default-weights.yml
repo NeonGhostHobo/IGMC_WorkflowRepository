@@ -1,0 +1,15 @@
+categories:
+  repository-contract: 15
+  structural-conformity: 10
+  ai-configuration: 15
+  documentation: 15
+  issue-governance: 10
+  validation-and-testing: 15
+  git-and-ci-governance: 10
+  workflow-currency: 10
+grades:
+  fully_aligned: 95
+  aligned: 85
+  partially_aligned: 70
+  drifting: 50
+  ungoverned: 0

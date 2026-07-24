@@ -1,0 +1,8 @@
+id: generic-software
+extends: igmc-default
+description: Generic software repository with no framework-specific structural assumptions.
+expected:
+  paths: []
+commands:
+  validate: null
+  test: null

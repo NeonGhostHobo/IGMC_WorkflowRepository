@@ -1,0 +1,12 @@
+id: unity-project
+extends: igmc-default
+description: Unity project with standard Unity project folders and generated folders ignored.
+expected:
+  paths:
+    - Assets
+    - Packages
+    - ProjectSettings
+checks:
+  - unity.project-version-present
+  - unity.generated-folders-ignored
+  - unity.meta-files-consistent

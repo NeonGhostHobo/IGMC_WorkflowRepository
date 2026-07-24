@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://igmc.local/schemas/alignment-rule.schema.json",
+  "title": "IGMC Alignment Rule",
+  "type": "object",
+  "required": ["id", "category", "severity", "weight", "check", "remediation"],
+  "properties": {
+    "id": { "type": "string" },
+    "category": { "type": "string" },
+    "severity": { "type": "string" },
+    "weight": { "type": "number" },
+    "applies_to": { "type": "array" },
+    "check": {
+      "type": "object",
+      "required": ["type"]
+    },
+    "remediation": {
+      "type": "object",
+      "required": ["type", "safe"]
+    }
+  }
+}

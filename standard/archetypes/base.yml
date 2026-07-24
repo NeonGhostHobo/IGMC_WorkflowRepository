@@ -1,0 +1,16 @@
+id: igmc-default
+description: Base profile for repositories managed by Command Deck.
+documentation:
+  required:
+    - docs
+    - docs/context_pack.md
+    - docs/goals.md
+    - docs/design.md
+    - docs/plan.md
+checks:
+  - repository.contract.present
+  - repository.contract.valid
+  - documentation.required-artifacts-present
+  - validation.commands-declared
+  - workflow.issue-template-present
+  - workflow.pr-template-present
