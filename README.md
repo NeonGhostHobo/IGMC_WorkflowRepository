@@ -3,7 +3,7 @@
 This repository is the **single source of truth** for the IGMC repository operating workflow. It is the workflow standard, installer, and template distribution source for all repositories managed by Command Deck.
 
 It distributes the reusable pieces that make a repository compatible with:
-- The IGMC Issue -> Copilot -> PR loop
+- Codex issue drafting and GitHub publishing from a local checkout, with Copilot as an optional implementation route
 - The PR + nightly **IGMC integrity gates**
 - The CI failure -> PolishingAgent loop (with attempt cap)
 - The agent spec stack under `.github/agents/`
@@ -53,3 +53,9 @@ From this repo root:
 
 - `python validators/validate_standard_assets.py`
 - `python validators/validate_repository_contract.py --root /path/to/installed-repo`
+
+## Generate issues with Codex
+
+Open an installed repository in the Codex VS Code extension, OpenAI desktop app, or Codex CLI. Ask Codex to turn a request or `docs/design/` section into IGMC issues. The installed `.agents/skills/igmc-issues/SKILL.md` creates `tickets/*.md` drafts, checks existing GitHub issues for duplicates, and publishes with `scripts/igmc_issue.py` when requested. Publishing uses an authenticated `gh` CLI; no Copilot assignment is required.
+
+The optional Copilot route remains in `.github/copilot-instructions.md` and the GitHub agent files. Applying the template does not connect a repository to Codex cloud; that connection is configured separately in Codex.

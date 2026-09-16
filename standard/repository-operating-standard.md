@@ -827,6 +827,9 @@ source documents
 ```
 
 The agent MUST NOT directly create issues when operating in proposal-only mode.
+### 12.2.1 Codex issue generation
+
+Codex MAY generate issue drafts from repository requests or `docs/` sources in the local checkout. The shared `.agents/skills/igmc-issues/SKILL.md` workflow is available to Codex in VS Code, the OpenAI desktop app, and CLI. It records each candidate in `tickets/*.md`, validates the draft, checks existing GitHub issues for duplicates, and publishes only when issue creation is requested. GitHub Copilot remains an optional agent for implementation; its assignment is not a precondition for issue generation.
 
 ### 12.3 Source traceability
 

@@ -1,98 +1,17 @@
-# Workflow Scaffold Compatibility Wrapper (IGMC)
+# Workflow Scaffold Compatibility Wrapper
 
-The root repository is the **single source of truth** for the IGMC repo workflow setup. This folder is retained only as a compatibility wrapper for existing automation that still calls `workflow_scaffold/apply.py`.
+The canonical IGMC workflow installer is `../apply.py`. This directory remains only for older automation that invokes `workflow_scaffold/apply.py`; the wrapper delegates to the root installer and there is no second template tree here.
 
-There is intentionally no `workflow_scaffold/template/` tree. The only installable template lives at root `template/`.
+From the workflow repository root, install into another checkout with:
 
-It is designed to be copyable into any repository (Unity or non-Unity) to make it compatible with:
+```sh
+python apply.py --dest /path/to/repo --repo-id my-repo --repo-name "My Repo" --archetype rust-terminal-application
+```
 
-- The IGMC Issue → Copilot → PR loop
-- The PR + nightly **IGMC integrity gates**
-- The CI failure → PolishingAgent loop (with attempt cap)
-- The agent spec stack under `.github/agents/`
+The installer copies `template/` paths into the destination. It includes the repository contract, baseline `docs/` artifacts, GitHub workflows and agents, and the `.agents/skills/igmc-issues` skill with `scripts/igmc_issue.py`.
 
-## Apply to another repo
+## Codex issue generation
 
-From this repo root:
+Open the destination repository in Codex for VS Code, the OpenAI desktop app, or CLI. Ask Codex to turn a request or a `docs/design/` section into GitHub issues. It writes reviewable `tickets/*.md` drafts, checks for duplicates, and uses the authenticated GitHub CLI to publish when asked. See the installed `AGENTS.md` and `.agents/skills/igmc-issues/SKILL.md` for the workflow.
 
-- `python3 apply.py --dest /path/to/other-repo --repo-id my-repo --repo-name "My Repo" --archetype generic-software`
-
-Existing automation may still call:
-
-- `python3 workflow_scaffold/apply.py --dest /path/to/other-repo`
-
-That wrapper delegates to the canonical root `apply.py`.
-
-Options:
-
-- Add `--force` to overwrite existing files.
-
-## What gets installed
-
-Everything under root `template/` is copied into the destination repo root, preserving paths:
-
-- `.github/workflows/*`
-- `.github/agents/*`
-- `.github/copilot-instructions.md`
-- `.github/ISSUE_TEMPLATE/igmc-intake.yml`
-- `.github/ISSUE_TEMPLATE/igmc-design-doc.yml`
-- `.github/workflows/design_doc_intake.yml`
-- `.github/workflows/tickets_to_issues.yml`
-- `.github/workflows/igmc_pr_rebase.yml`
-- `scripts/validate_artifacts.py`
-- `.igmc/repository.yml`
-- baseline `/docs/*` artifacts
-- `tickets/` + `reports/` folders
-
-Product design documents belong under `docs/design/` in destination repositories.
-
-## Inputs supported
-
-This scaffold supports two input styles:
-
-### 1) Single Issue intake (existing)
-
-- Create an Issue using `.github/ISSUE_TEMPLATE/igmc-intake.yml` (label `igmc`) or title it `IGMC: ...`
-- Assign the Issue to Copilot coding agent
-- Copilot opens a PR and iterates until CI passes
-
-### 2) Design doc intake (new)
-
-Two ways to provide a free-form design document:
-
-- **Push a file** into `docs/design/` (Markdown recommended)
-  - The workflow `IGMC Design Doc Intake` creates an Issue titled `IGMC: Design Doc Intake — <filename>` and labels it `igmc`.
-- **Create an Issue** using `.github/ISSUE_TEMPLATE/igmc-design-doc.yml`
-
-Intended flow:
-
-1) Provide the design doc (file push or issue)
-2) Assign the intake issue to Copilot coding agent
-3) Copilot splits the doc into `tickets/*.md` (and updates required `/docs/*`) in a PR
-4) After merge, `IGMC Tickets → Issues` creates one IGMC Issue per newly-added ticket
-
-Notes:
-
-- This scaffold automates issue creation from `docs/design/` and from new `tickets/*.md`.
-- Depending on your GitHub/Copilot setup, you may still need to assign created issues to Copilot (the scaffold itself does not force assignment).
-
-## Merge conflicts (parallel PRs)
-
-There is no safe, general way to auto-resolve merge conflicts: Git cannot reliably infer intent when two PRs touch the same lines.
-
-Recommended approach:
-
-- Prefer **one PR at a time per feature area**.
-- Use the design-doc intake to create a ticket set, then assign issues **in order** (dependency-first) to reduce overlapping edits.
-- Keep tickets narrow and file-disjoint where possible (different scripts/shaders/scenes per ticket).
-
-Automation fallback:
-
-- If an IGMC PR is simply behind `main/master` (no true conflicts), comment `/igmc-rebase` on the PR.
-  - The workflow `IGMC PR Rebase Helper` will attempt to rebase and force-push the PR branch (same-repo branches only).
-  - If conflicts exist, it posts a comment and stops (manual/Copilot resolution still required).
-
-## Notes
-
-- The PR gate enforces that any non-doc changes also update required `/docs/*`, add/update at least one `tickets/*.md`, and add/update `review.md`.
-- Archetype-specific validation, such as Unity compilation, is declared by `.igmc/repository.yml` and archetype rules rather than hard-coded into the generic template.
+GitHub Copilot remains available through `.github/copilot-instructions.md` and the optional GitHub agent files. Connecting the repository to Codex cloud or enabling Codex PR review is configured separately in Codex.

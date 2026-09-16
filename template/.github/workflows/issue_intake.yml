@@ -1,4 +1,4 @@
-name: IGMC Issue Helper (Copilot)
+name: IGMC Issue Helper
 
 on:
   issues:
@@ -9,51 +9,33 @@ permissions:
 
 jobs:
   helper:
-    name: Comment Copilot checklist
+    name: Comment implementation checklist
     if: contains(github.event.issue.labels.*.name, 'igmc') || startsWith(github.event.issue.title, 'IGMC:')
     runs-on: ubuntu-latest
 
     steps:
-      - name: Comment Copilot checklist
+      - name: Comment implementation checklist
         uses: actions/github-script@v7
         with:
           script: |
             const issue = context.payload.issue;
-
-            const checklist = `IGMC Copilot checklist\n\n` +
-              `Assign this issue to Copilot coding agent to start the overnight run.\n\n` +
-              `Required output order (must be in the PR):\n` +
-              `1) Update required docs first (always):\n` +
-              `   - docs/context_pack.md + docs/context_pack.json\n` +
-              `   - docs/goals.md + docs/goals.json\n` +
-              `   - docs/design.md + docs/design.json\n` +
-              `   - docs/plan.md + docs/plan.yaml\n` +
-              `2) Add/update one or more tickets/*.md\n` +
-              `3) Implement the tickets (minimal safe changes)\n` +
-              `4) Run ReviewAgent and add/update review.md\n` +
-              `5) Add/update reports/YYYY-MM-DD-{issue_number}.md + reports/YYYY-MM-DD-{issue_number}.json\n` +
-              `   (Use this issue's number as the suffix — e.g. reports/2025-07-01-${issue.number}.md)\n\n` +
-              `CI gates:\n` +
-              `- PR (IGMC Integrity Gate) must pass\n` +
-              `- scripts/validate_artifacts.py must pass\n` +
-              `- If code changes occur, the PR must update required docs + include tickets/*.md + review.md\n\n` +
-              `Workflow tips:\n` +
-              `- If the PR is behind base (no true conflicts), comment /igmc-rebase on the PR to attempt an automated rebase.\n` +
-              `- If multiple IGMC PRs are open in parallel, the auto-rebase workflow will try to keep them up to date when one merges.\n\n` +
-              `Reference: .github/copilot-instructions.md`;
-
-            // Avoid duplicate comments if re-run.
+            const checklist = `## IGMC issue checklist\n\n` +
+              `Codex can work on this issue from the repository in VS Code or the OpenAI desktop app. ` +
+              `Use the repository instructions in AGENTS.md and the relevant docs. ` +
+              `If issue generation is needed, use the igmc-issues skill and check existing issues first.\n\n` +
+              `For implementation, update the required docs and tickets, run the declared validation commands, ` +
+              `and include review.md when the PR gate requires it. ` +
+              `Assigning GitHub Copilot is an optional alternative.\n`;
             const existing = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue.number,
               per_page: 100,
             });
-            if (existing.data.some(c => (c.body || '').startsWith('IGMC Copilot checklist'))) {
-              core.info('Checklist comment already exists; skipping.');
+            if (existing.data.some(c => (c.body || '').startsWith('## IGMC issue checklist'))) {
+              core.info('IGMC checklist already exists; skipping.');
               return;
             }
-
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
