@@ -43,7 +43,8 @@ Everything under root `template/` is copied into the destination repo root, pres
 - `.igmc/repository.yml`
 - baseline `/docs/*` artifacts
 - `tickets/` + `reports/` folders
-- `design_docs/` folder
+
+Product design documents belong under `docs/design/` in destination repositories.
 
 ## Inputs supported
 
@@ -59,7 +60,7 @@ This scaffold supports two input styles:
 
 Two ways to provide a free-form design document:
 
-- **Push a file** into `design_docs/` (Markdown recommended)
+- **Push a file** into `docs/design/` (Markdown recommended)
   - The workflow `IGMC Design Doc Intake` creates an Issue titled `IGMC: Design Doc Intake — <filename>` and labels it `igmc`.
 - **Create an Issue** using `.github/ISSUE_TEMPLATE/igmc-design-doc.yml`
 
@@ -72,7 +73,7 @@ Intended flow:
 
 Notes:
 
-- This scaffold automates issue creation from `design_docs/` and from new `tickets/*.md`.
+- This scaffold automates issue creation from `docs/design/` and from new `tickets/*.md`.
 - Depending on your GitHub/Copilot setup, you may still need to assign created issues to Copilot (the scaffold itself does not force assignment).
 
 ## Merge conflicts (parallel PRs)

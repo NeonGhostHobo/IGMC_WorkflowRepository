@@ -9,7 +9,7 @@ It distributes the reusable pieces that make a repository compatible with:
 - The agent spec stack under `.github/agents/`
 - The IGMC Repository Operating Standard contract and alignment model
 
-The repository was originally named for Unity development, but the workflow now applies to Unity and non-Unity repositories. Unity-specific expectations belong in the `unity-project` archetype rather than the generic scaffold. The intended repository name is `IGMC_WorkflowRepository`; until the remote is renamed, this working tree remains compatible with the old repository name.
+The repository was originally named for Unity development, but the workflow now applies to Unity and non-Unity repositories. Unity-specific expectations belong in the `unity-project` archetype rather than the generic scaffold. The repository is named `IGMC_WorkflowRepository`.
 
 ## Apply to another repo
 

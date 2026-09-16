@@ -338,7 +338,7 @@ Validation:
 
 ## Decisions Needed Before Continuing
 
-1. Should the workflow repository be officially renamed to `IGMC_WorkflowRepository` now, or after the hardening pass?
+1. Resolved: the workflow repository was renamed to `IGMC_WorkflowRepository`.
 2. Should Command Deck read workflow standard YAML directly from a configured path, or should the workflow repo generate Rust-compatible rule/asset registries?
 3. Should manifest proposals be written by default, or only with an explicit flag like `/repo adopt --write-manifest`?
 4. Should safe remediation ever run automatically, or only through `/repo repair --apply`?
